@@ -1,4 +1,4 @@
-<p align="center"><img src="./ASSETS/29.jpeg" width="500" alt="image 1"/></p>
+<p align="center"></p>
 
 ---
 
@@ -19,7 +19,7 @@ and performed **simulations using Icarus Verilog and GTKWave** to observe BabySo
 <summary><h2> What is a System on a Chip (SoC)?</h2> </summary>
 
 
-<p align="center"><img src="./ASSETS/1.png" width="700" alt="image 1"/></p>
+<p align="center"></p>
 
 A **System on a Chip (SoC)** is like fitting an entire computer onto a single microchip. Instead of using many separate components like CPU, memory, input/output controllers, graphics, and connectivity chips, an SoC packs most (or all) of them into one compact silicon chip. This makes devices smaller, faster, and more power efficient—perfect for smartphones, wearables, smart appliances, and even cars.
 
@@ -29,7 +29,7 @@ A **System on a Chip (SoC)** is like fitting an entire computer onto a single mi
 
 ## 1. CPU (Central Processing Unit)🧠
 
-<p align="center"><img src="./ASSETS/2.png" width="700" alt="image 2"/></p>
+<p align="center"></p>
 
 The CPU is the **main decision-maker** inside an SoC. Think of it as the *manager* that handles all general tasks. Here's what it does:
 
@@ -42,7 +42,7 @@ The CPU is the **main decision-maker** inside an SoC. Think of it as the *manage
 
 ## 2. GPU (Graphics Processing Unit)
 
-<p align="center"><img src="./ASSETS/3.jpeg" width="700" alt="image 3"/></p>
+<p align="center"></p>
 
 The GPU is designed for **heavy visual and parallel processing tasks**. It’s like the *artist + accelerator* of the chip.
 
@@ -54,7 +54,7 @@ The GPU is designed for **heavy visual and parallel processing tasks**. It’s l
 
 ## 3. Memory (RAM, Cache, and Storage Controllers)💾
 
-<p align="center"><img src="./ASSETS/4.jpg" width="700" alt="image 4"/></p>
+<p align="center"></p>
 
 Memory helps the CPU and GPU work quickly by storing data temporarily.
 
@@ -66,7 +66,7 @@ Memory helps the CPU and GPU work quickly by storing data temporarily.
 
 ## 4. DSP (Digital Signal Processor)
 
-<p align="center"><img src="./ASSETS/5.png" width="700" alt="image 5"/></p>
+<p align="center"></p>
 
 
 A DSP is a **specialized mini-processor** optimized for handling continuous signals like audio, video, and sensors.
@@ -79,7 +79,7 @@ A DSP is a **specialized mini-processor** optimized for handling continuous sign
 
 ## 5. Connectivity Units
 
-<p align="center"><img src="./ASSETS/6.jpg" width="400" alt="image 6"/></p>
+<p align="center"></p>
 
 These blocks make the device capable of communicating wirelessly or wired.
 
@@ -91,9 +91,7 @@ These blocks make the device capable of communicating wirelessly or wired.
 
 ## 6. I/O Interfaces🔌
 
-<p align="center"><img src="./ASSETS/7.gif" width="500" alt="image 7"/></p>
 
-<p align="center"><img src="./ASSETS/9.jpeg" width="500" alt="image 9"/></p>
 
 These are the **communication bridges** between the SoC and external components.
 
@@ -117,7 +115,7 @@ The PMU ensures the SoC **uses power efficiently** without overheating or draini
 
 ## 8. Security Blocks 🔐
 
-<p align="center"><img src="./ASSETS/10.jpg" width="600" alt="image 10"/></p>
+<p align="center"></p>
 
 Security modules protect the system from unauthorized access and attacks.
 
@@ -469,3 +467,133 @@ The **AMS interface** isolates sensitive analog blocks (DAC, PLL) from digital s
 
 ---
 # Project Structure
+```
+RISC-V-SoC-Tapeout_Week-2
+├── ASSETS
+├── gls_model
+│   ├── primitives.v
+│   └── sky130_fd_sc_hd.v
+├── include
+│   ├── sandpiper.vh
+│   ├── sandpiper_gen.vh
+│   ├── sp_default.vh
+│   └── sp_verilog.vh
+├── lef
+│   ├── avsddac.lef
+│   └── avsdpll.lef
+├── lib
+│   ├── avsddac.lib
+│   ├── avsdpll.lib
+│   └── sky130_fd_sc_hd__tt_025C_1v80.lib
+├── module
+│   ├── avsddac.v
+│   ├── avsdpll.v
+│   ├── clk_gate.v
+│   ├── primitives.v
+│   ├── pseudo_rand.sv
+│   ├── pseudo_rand_gen.sv
+│   ├── rvmyth.tlv
+│   ├── rvmyth.v
+│   ├── rvmyth_gen.v
+│   ├── sky130_fd_sc_hd.v
+│   ├── testbench.rvmyth.post-routing.v
+│   ├── testbench.v
+│   ├── vsdbabysoc.synth.v
+│   └── vsdbabysoc.v
+├── output
+│   ├── post_synth_sim
+│   │   ├── post_synth_sim.out
+│   │   └── post_synth_sim.vcd
+│   └── pre_synth_sim
+│       ├── pre_synth_sim.out
+│       └── pre_synth_sim.vcd
+├── LICENSE
+└── README.md
+
+```
+# project Cloning
+```
+git clone https://github.com/manili/VSDBabySoC.git
+cd VSDBabySoC/
+pandiyarajans@LAPTOP-37GJFBIB:~/VSDBabySoC/
+images  LICENSE  Makefile  README.md  src
+cd src/module
+avsddac.v   pseudo_rand_gen.sv  testbench.rvmyth.post-routing.v
+avsdpll.v   pseudo_rand.sv      testbench.v
+clk_gate.v  rvmyth.tlv          vsdbabysoc.v
+```
+# Cnverstion of TL-Verilog -> Verilog
+
+❗ At the beginning, you’ll only find the rvmyth.tlv file inside the src/module/ directory, because the RVMYTH core is implemented in TL-Verilog. To run simulations, this needs to be transformed into a .v file.
+Follow the steps below to perform the TL-Verilog to Verilog conversion:
+
+
+**Step 1 – Set up Python environment tools**
+
+Make sure you have `python3-venv` installed. If not, update your package list and install it along with `pip`:
+
+```bash
+sudo apt update
+sudo apt install python3-venv python3-pip
+```
+**Step 2 – Build and activate a virtual environment**
+```
+cd VSDBabySoC/
+python3 -m venv sp_env
+source sp_env/bin/activate
+```
+**Step 3 – Add SandPiper-SaaS**
+```
+pip install pyyaml click sandpiper-saas
+```
+### 🛠️ RTL Compilation with Icarus Verilog
+
+- 🔸 **Macro Used:** `DPRE_SYNTH_SIM`
+- 🔸**Why:** To check the RTL design behavior before moving to synthesis.
+- 🔸**Result:** An executable simulation file (`pre_synth_sim.out`) along with a `.vcd` waveform file inside `output/pre_synth_sim/`.
+
+❗Before going to the simulation part, ensure that your project diectory like this
+
+```
+VSDBabySoC
+├── images
+├── LICENSE
+├── Makefile
+├── output
+│   ├── pre_synth_sim
+├── README.md
+├── sp_env
+├── src
+
+```
+## **GTKWave: steps to analyze waveform**
+
+1. `gtkwave pre_synth_sim.vcd`
+2. Add signals: `uut` → `core` → **`RV_TO_DAC[9:0]`**, **`OUT`**, **`CLK`**, **`reset`**, and desired **`CPU_*`** internals.
+3. Set bus radix to decimal: right-click **`RV_TO_DAC`** → **Radix** → **Unsigned (decimal)**.
+4. Measure clock: zoom on **`CLK`**, place cursor A on a rising edge and cursor B on the next rising edge; read **ΔT** (status bar).
+5. Measure reset window: place cursor on reset rising and cursor on reset falling; read **ΔT**.
+6. Verify DAC mapping: hover **`RV_TO_DAC`** (decimal) and **`OUT`** at the same time and compare with **(code/1023)*VREFH**.
+
+---
+
+**The pre-synthesis run confirms correct reset behavior, a stable 40 MHz PLL clock, and accurate CPU→DAC mapping (digital codes produce expected analog voltages).** 
+
+
+</details>
+---
+
+---
+## 🙏 Special Thanks 👏
+
+I sincerely thank all the organizations and their key members for making this program possible 💡:
+
+- 🧑‍🏫 **VLSI System Design (VSD)** – [Kunal Ghosh](https://www.linkedin.com/in/kunal-ghosh-vlsisystemdesign-com-28084836/) for mentorship and vision.
+- 🤝 **Efabless** – [Michael Wishart](https://www.linkedin.com/in/mike-wishart-81480612/) & [Mohamed Kassem](https://www.linkedin.com/in/mkkassem/) for enabling collaborative open-source chip design.
+- 🏭 **[Semiconductor Laboratory (SCL)](https://www.scl.gov.in/)** – for PDK & foundry support.
+
+- 🛠️ **Synopsys** – [Sassine Ghazi](https://www.linkedin.com/in/sassine-ghazi/) for providing industry-grade EDA tools under the C2S program.
+
+---
+👉 Main Repo Link :
+[https://github.com/Pandiya2007/RISC-V-SoC-Tapeout-Program](https://github.com/Pandiya2007/SOC_Tapeout_Week2-Program)
